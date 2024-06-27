@@ -1,13 +1,9 @@
 steps:
-  # Build frontend Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA', './frontend']
-
-  # Push frontend Docker image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA']
-
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx']
 images:
-  - 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA'
+- 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx'
 options:
   logging: 'CLOUD_LOGGING_ONLY'
