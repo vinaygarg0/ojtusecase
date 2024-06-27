@@ -1,19 +1,19 @@
 steps:
   # Step 1: Build and push the Frontend Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/frontend:$COMMIT_SHA', './frontend']
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/frontend:$COMMIT_SHA', '.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/winged-plate-426209-c8/usecaserepo/frontend:$COMMIT_SHA']
 
   # Step 2: Build and push the Backend Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/backend:$COMMIT_SHA', './backend']
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/backend:$COMMIT_SHA', '.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/winged-plate-426209-c8/usecaserepo/backend:$COMMIT_SHA']
 
   # Step 3: Build and push the Database Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/database:$COMMIT_SHA', './database']
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/usecaserepo/database:$COMMIT_SHA', '.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/winged-plate-426209-c8/usecaserepo/database:$COMMIT_SHA']
 
