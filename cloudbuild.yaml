@@ -1,9 +1,25 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx', '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx']
+  # Step 1: Build and push the Frontend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA', './frontend']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA']
+
+  # Step 2: Build and push the Backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/backend:$COMMIT_SHA', './backend']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/winged-plate-426209-c8/backend:$COMMIT_SHA']
+
+  # Step 3: Build and push the Database Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/winged-plate-426209-c8/database:$COMMIT_SHA', './database']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/winged-plate-426209-c8/database:$COMMIT_SHA']
+
 images:
-- 'us-central1-docker.pkg.dev/winged-plate-426209-c8/my-repo/my-app:nginx'
+  - 'gcr.io/winged-plate-426209-c8/frontend:$COMMIT_SHA'
+  - 'gcr.io/winged-plate-426209-c8/backend:$COMMIT_SHA'
+  - 'gcr.io/winged-plate-426209-c8/database:$COMMIT_SHA'
 options:
   logging: 'CLOUD_LOGGING_ONLY'
